@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.xj.groupbuy.mapper.MenuMapper">
+<mapper namespace="com.example.community.mapper.MenuMapper">
 
-    <resultMap id="BaseResultMap" type="com.xj.groupbuy.entity.Menu" >
+    <resultMap id="BaseResultMap" type="com.example.community.entity.Menu" >
         <id column="id" property="id" jdbcType="INTEGER" />
         <result column="url" property="url" jdbcType="VARCHAR" />
         <result column="path" property="path" jdbcType="VARCHAR" />
@@ -11,13 +11,13 @@
         <result column="icon_Cls" property="iconCls" jdbcType="VARCHAR" />
         <result column="parent_Id" property="parentId" jdbcType="INTEGER" />
         <result column="enabled" property="enabled" jdbcType="BIT" />
-        <association property="meta" javaType="com.xj.groupbuy.entity.Meta">
+        <association property="meta" javaType="com.example.community.entity.Meta">
             <result column="keepAlive" property="keepAlive" jdbcType="BIT" />
             <result column="requireAuth" property="requireAuth" jdbcType="BIT" />
         </association>
     </resultMap>
-    <resultMap id="Menus2" type="com.xj.groupbuy.entity.Menu" extends="BaseResultMap">
-        <collection property="children" ofType="com.xj.groupbuy.entity.Menu">
+    <resultMap id="Menus2" type="com.example.community.entity.Menu" extends="BaseResultMap">
+        <collection property="children" ofType="com.example.community.entity.Menu">
             <id column="id2" property="id" jdbcType="INTEGER" />
             <result column="url2" property="url" jdbcType="VARCHAR" />
             <result column="path2" property="path" jdbcType="VARCHAR" />
@@ -26,15 +26,15 @@
             <result column="iconCls2" property="iconCls" jdbcType="VARCHAR" />
             <result column="parentId2" property="parentId" jdbcType="INTEGER" />
             <result column="enabled2" property="enabled" jdbcType="BIT" />
-            <association property="meta" javaType="com.xj.groupbuy.entity.Meta">
+            <association property="meta" javaType="com.example.community.entity.Meta">
                 <result column="keepAlive2" property="keepAlive" jdbcType="BIT" />
                 <result column="requireAuth2" property="requireAuth" jdbcType="BIT" />
             </association>
         </collection>
     </resultMap>
 
-    <resultMap id="MenuWithRole" type="com.xj.groupbuy.entity.Menu" extends="BaseResultMap">
-        <collection property="roles" ofType="com.xj.groupbuy.entity.Role">
+    <resultMap id="MenuWithRole" type="com.example.community.entity.Menu" extends="BaseResultMap">
+        <collection property="roles" ofType="com.example.community.entity.Role">
             <id column="rid" property="roleId"/>
             <result column="rname" property="name"/>
             <result column="rnameZh" property="nameZh"/>
@@ -42,13 +42,13 @@
     </resultMap>
 
 
-    <resultMap id="MenuWithChildren" type="com.xj.groupbuy.entity.Menu" extends="BaseResultMap">
+    <resultMap id="MenuWithChildren" type="com.example.community.entity.Menu" extends="BaseResultMap">
         <id column="id1" property="id"/>
         <result column="name1" property="name"/>
-        <collection property="children" ofType="com.xj.groupbuy.entity.Menu">
+        <collection property="children" ofType="com.example.community.entity.Menu">
             <id column="id2" property="id"/>
             <result column="name2" property="name"/>
-            <collection property="children" ofType="com.xj.groupbuy.entity.Menu">
+            <collection property="children" ofType="com.example.community.entity.Menu">
                 <id column="id3" property="id"/>
                 <result column="name3" property="name"/>
             </collection>

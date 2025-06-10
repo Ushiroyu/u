@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.xj.groupbuy.mapper.UserMapper">
+<mapper namespace="com.example.community.mapper.UserMapper">
 
-    <resultMap id="BaseResultMap" type="com.xj.groupbuy.entity.User">
+    <resultMap id="BaseResultMap" type="com.example.community.entity.User">
         <id column="user_id" property="userId" jdbcType="VARCHAR"/>
         <result column="username" property="username" jdbcType="VARCHAR"/>
         <result column="password" property="password" jdbcType="VARCHAR"/>
@@ -12,22 +12,22 @@
         <result column="name" property="name" jdbcType="VARCHAR"/>
         <result column="enabled" property="enabled" jdbcType="BIT"/>
     </resultMap>
-    <resultMap id="UserWithRoles" type="com.xj.groupbuy.entity.User" extends="BaseResultMap">
-        <collection property="roles" ofType="com.xj.groupbuy.entity.Role">
+    <resultMap id="UserWithRoles" type="com.example.community.entity.User" extends="BaseResultMap">
+        <collection property="roles" ofType="com.example.community.entity.Role">
             <id column="rid" property="roleId"/>
             <result column="rname" property="name"/>
             <result column="rnameZh" property="nameZh"/>
         </collection>
     </resultMap>
     
-    <resultMap id="UserWithSelectRoles" type="com.xj.groupbuy.entity.User" extends="BaseResultMap">
-        <collection property="roles" column="user_id" ofType="com.xj.groupbuy.entity.Role" select="selectUserRoles">
+    <resultMap id="UserWithSelectRoles" type="com.example.community.entity.User" extends="BaseResultMap">
+        <collection property="roles" column="user_id" ofType="com.example.community.entity.Role" select="selectUserRoles">
             <id column="rid" property="roleId"/>
             <result column="rname" property="name"/>
             <result column="rnameZh" property="nameZh"/>
         </collection>
     </resultMap>
-    <resultMap id="RoleMap" type="com.xj.groupbuy.entity.Role">
+    <resultMap id="RoleMap" type="com.example.community.entity.Role">
         <id column="rid" property="roleId"/>
         <result column="rname" property="name"/>
         <result column="rnameZh" property="nameZh"/>
@@ -83,7 +83,7 @@
         order by u.user_id
     </select>
 
-    <select id="getUserRolesById" resultType="com.xj.groupbuy.entity.Role">
+    <select id="getUserRolesById" resultType="com.example.community.entity.Role">
         select r.*
         from `role` r,
              `user_role` ur

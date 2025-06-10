@@ -2,8 +2,8 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.xj.groupbuy.mapper.TestMapper">
-    <select id="getTest" resultType="com.xj.groupbuy.entity.TTest">
+<mapper namespace="com.example.community.mapper.TestMapper">
+    <select id="getTest" resultType="com.example.community.entity.TTest">
         select *
         from T_TEST
         where ID = #{id}
