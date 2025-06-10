@@ -1,5 +1,4 @@
 package com.example.community.common.security;
-
 import com.example.community.entity.Menu;
 import com.example.community.entity.Role;
 import com.example.community.service.IMenuService;
@@ -10,23 +9,13 @@ import org.springframework.security.web.access.intercept.FilterInvocationSecurit
 import org.springframework.stereotype.Component;
 import org.springframework.util.AntPathMatcher;
 import org.springframework.security.access.SecurityConfig;
-
 import java.util.Collection;
 import java.util.List;
-
-/**
- * Author : zhangxiaojian
- * Date : 2021/3/11
- * 该类的主要功能就是通过当前的请求地址，获取该地址需要的用户角色
- */
 @Component
 public class MyFilterInvocationSecurityMetadataSource implements FilterInvocationSecurityMetadataSource {
-
     @Autowired
     private IMenuService menuService;
-
     AntPathMatcher antPathMatcher = new AntPathMatcher();
-
     @Override
     public Collection<ConfigAttribute> getAttributes(Object object) throws IllegalArgumentException {
         String requestUrl = ((FilterInvocation) object).getRequestUrl();
@@ -43,12 +32,10 @@ public class MyFilterInvocationSecurityMetadataSource implements FilterInvocatio
         }
         return SecurityConfig.createList("ROLE_LOGIN");
     }
-
     @Override
     public Collection<ConfigAttribute> getAllConfigAttributes() {
         return null;
     }
-
     @Override
     public boolean supports(Class<?> clazz) {
         return true;

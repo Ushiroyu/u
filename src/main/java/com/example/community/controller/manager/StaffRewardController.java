@@ -1,6 +1,4 @@
 package com.example.community.controller.manager;
-
-
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
@@ -11,31 +9,16 @@ import com.example.community.entity.StaffScoreLog;
 import com.example.community.service.IStaffRewardService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
-/**
- * <p>
- * 前端控制器
- * </p>
- *
- * @author zhangxiaojian
- * @since 2021-04-14
- */
 @RestController
 @RequestMapping("manager/staffReward")
 public class StaffRewardController {
-
     @Autowired
     private IStaffRewardService staffRewardService;
-
-
     @GetMapping("all/{pageNo}/{pageSize}")
     public IPage<?> getAllStaffReward(@RequestParam(required = false) String userId, @PathVariable(value = "pageNo") Integer pageNo, @PathVariable(value = "pageSize") Integer pageSize) {
-
         Page<StaffReward> page = new Page<>(pageNo, pageSize);
-        
         return staffRewardService.page(page, new MyQueryWrapper<StaffReward>().eq("user_id", userId));
     }
-
     @GetMapping("{id}")
     public CommonVO getStaffReward(@PathVariable Integer id){
         StaffReward byId = staffRewardService.getById(id);

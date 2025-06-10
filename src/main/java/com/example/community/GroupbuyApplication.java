@@ -1,5 +1,4 @@
 package com.example.community;
-
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -9,20 +8,12 @@ import org.springframework.boot.web.server.WebServerFactoryCustomizer;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpStatus;
-
 import java.util.Arrays;
-
 @SpringBootApplication
 @MapperScan("com.example.community.mapper")
 public class GroupbuyApplication {
-
     public static void main(String[] args) {
         SpringApplication.run(GroupbuyApplication.class, args);
-//        ConfigurableApplicationContext run =
-//        String[] names = run.getBeanDefinitionNames();
-//        for (String name : names) {
-//            System.out.println(name);
-//        }
     }
     @Bean
     public WebServerFactoryCustomizer<ConfigurableWebServerFactory> webServerFactoryCustomizer() {
@@ -31,5 +22,4 @@ public class GroupbuyApplication {
             factory.addErrorPages(error404Page);
         };
     }
-
 }

@@ -1,5 +1,4 @@
 package com.example.community.controller.user;
-
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.example.community.common.util.UserUtil;
 import com.example.community.common.vo.CommonVO;
@@ -9,22 +8,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.parameters.P;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.Map;
-
-/**
- * Author : zhangxiaojian
- * Date : 2021/3/28
- */
 @RestController
 @RequestMapping("user")
 public class UserController {
-    
     @Autowired
     private IUserService userService;
     @Autowired
     PasswordEncoder passwordEncoder;
-    
     @GetMapping
     public CommonVO getUserDetail(){
         User currentUser = UserUtil.getCurrentUser();
@@ -34,9 +25,7 @@ public class UserController {
     }
     @PutMapping
     public CommonVO updateUserDetail(@RequestBody User user){
-        
         User currentUser = UserUtil.getCurrentUser();
-        
         if(!user.getUserId().equals(currentUser.getUserId())){
             return new CommonVO(false,"异常操作");
         } else {
@@ -49,7 +38,6 @@ public class UserController {
         String oldPassword = map.get("oldPassword").toString();
         String newPassword = map.get("newPassword").toString();
         String newPassword1 = map.get("newPassword1").toString();
-
         User currentUser = UserUtil.getCurrentUser();
         if(currentUser.getPassword().equals(passwordEncoder.encode(oldPassword))){
             if(newPassword.equals(newPassword1)){
@@ -62,5 +50,4 @@ public class UserController {
             return new CommonVO(false,"旧密码不正确");
         }
     }
-    
 }

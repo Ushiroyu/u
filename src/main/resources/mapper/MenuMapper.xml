@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.community.mapper.MenuMapper">
-
     <resultMap id="BaseResultMap" type="com.example.community.entity.Menu" >
         <id column="id" property="id" jdbcType="INTEGER" />
         <result column="url" property="url" jdbcType="VARCHAR" />
@@ -32,7 +31,6 @@
             </association>
         </collection>
     </resultMap>
-
     <resultMap id="MenuWithRole" type="com.example.community.entity.Menu" extends="BaseResultMap">
         <collection property="roles" ofType="com.example.community.entity.Role">
             <id column="rid" property="roleId"/>
@@ -40,8 +38,6 @@
             <result column="rnameZh" property="nameZh"/>
         </collection>
     </resultMap>
-
-
     <resultMap id="MenuWithChildren" type="com.example.community.entity.Menu" extends="BaseResultMap">
         <id column="id1" property="id"/>
         <result column="name1" property="name"/>
@@ -54,7 +50,6 @@
             </collection>
         </collection>
     </resultMap>
-    
     <select id="getAllMenusWithRole" resultMap="MenuWithRole">
         select 
                distinct m.id,
@@ -71,7 +66,6 @@
               rm.`role_id`=r.`role_id` 
         order by m.`id`
     </select>
-
     <select id="getMenusByUserId" resultMap="Menus2">
         select 
                m.*
@@ -85,7 +79,6 @@
         order by 
                  m.`sort`,m.`id`
     </select>
-
     <select id="getAllMenusIdAndName" resultMap="MenuWithChildren">
         select 
                m1.`id` as id1,m1.`name` as name1,
@@ -97,6 +90,4 @@
               m2.`enabled`= true 
         order by m1.`id`,m2.`id`
     </select>
-
-
 </mapper>

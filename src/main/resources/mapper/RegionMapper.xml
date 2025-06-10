@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.community.mapper.RegionMapper">
-    
     <select id="getAllProvinces" resultType="map">
         select
             province_code as `value`,
@@ -9,7 +8,6 @@
         from `province`
         order by province_code asc
     </select>
-    
     <select id="getCitysByProvinceCode" resultType="map">
         select
             city_code as `value`,
@@ -18,7 +16,6 @@
         where province_code = #{privinceCode}
         order by city_code asc
     </select>
-    
     <select id="getAreasByCityCode" resultType="map">
         select
             area_code as `value`,
@@ -27,7 +24,6 @@
         where city_code = #{cityCode}
         order by area_code asc
     </select>
-    
     <select id="getStreetsByAreaCode" resultType="map">
         select
             street_code as `value`,
@@ -36,7 +32,6 @@
         where area_code = #{areaCode}
         order by street_code asc
     </select>
-    
     <select id="getCommunityByStreetCode" resultType="map">
         select
             `id` as `value`,

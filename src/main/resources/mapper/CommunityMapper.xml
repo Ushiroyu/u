@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.community.mapper.CommunityMapper">
-
     <select id="getTable" resultType="map">
         select
             p.province_code as `provinceCode`,
@@ -38,7 +37,6 @@
         </choose>
         order by co.`id`
     </select>
-    
     <select id="getParentLevelId" resultType="map">
         select
             p.province_code as `provinceCode`,
@@ -54,7 +52,6 @@
                 left join `province` p on p.`province_code` = ci.`province_code`
         where co.`id` = #{id}
     </select>
-
     <select id="getParentLevelName" resultType="map">
         select
             p.name as `provinceName`,

@@ -1,5 +1,4 @@
 package com.example.community.service.impl;
-
 import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.segments.MergeSegments;
@@ -20,54 +19,35 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
-
-/**
- * <p>
- *  服务实现类
- * </p>
- *
- * @author zhangxiaojian
- * @since 2021-03-11
- */
 @Service
 @Primary
 public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements IMenuService {
-
     @Autowired
     private MenuMapper menuMapper;
     @Autowired
     private RoleMenuMapper roleMenuMapper;
-    
     @Override
     public List<Menu> getAllMenusWithRole() {
         return menuMapper.getAllMenusWithRole();
     }
-
     @Override
     public List<Menu> getMenusByUserId() {
         List<Menu> menusByUserId = menuMapper.getMenusByUserId(UserUtil.getCurrentUser().getUserId());
-
         return TreeUtil.getTreeList(0, menusByUserId);
-
     }
-
     @Override
     public List<Menu> getAllMenusIdAndName() {
         return menuMapper.getAllMenusIdAndName();
     }
-
     @Override
     public List<Integer> getLeafMenuIdsByRoleId(Integer roleId) {
         return roleMenuMapper.getMenuIdsByRoleId(roleId,true);
     }
-
     @Override
     public IPage<?> menuTable(String parentId, Integer pageNo, Integer pageSize) {
-
         Page<Menu> paramPage = new Page<>(pageNo,pageSize);
         QueryWrapper<Menu> wrapper = new QueryWrapper<>();
         if(parentId != null){
@@ -77,15 +57,12 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements IM
         }
         return this.page(paramPage, wrapper);
     }
-
     @Override
     public List<Menu> menuTree() {
-
         List<Menu> menus = menuMapper.selectList(null);
         List<Menu> treeList = TreeUtil.getTreeList(0, menus);
         return treeList;
     }
-
     @Override
     public boolean saveMenu(Menu menu) {
         boolean save = this.save(menu);
@@ -94,7 +71,6 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements IM
         roleMenuMapper.insert(roleMenu);
         return save;
     }
-
     @Override
     public CommonVO deleteMenu(Integer id) {
         Integer sonCount = menuMapper.selectCount(new QueryWrapper<Menu>().eq("parent_id", id));
@@ -106,12 +82,10 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements IM
             return new CommonVO(true,"删除成功");
         }
     }
-
     @Override
     public List<Menu> getMenuEasyTree() {
         List<Menu> menus = menuMapper.selectList(new QueryWrapper<Menu>().select("id","name").orderByAsc("id"));
         List<Menu> treeList = TreeUtil.getTreeList(0, menus);
         return treeList;
     }
-
 }

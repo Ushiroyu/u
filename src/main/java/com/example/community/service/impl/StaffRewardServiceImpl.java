@@ -1,5 +1,4 @@
 package com.example.community.service.impl;
-
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.example.community.common.util.DateUtil;
@@ -12,22 +11,11 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
-
-/**
- * <p>
- *  服务实现类
- * </p>
- *
- * @author zhangxiaojian
- * @since 2021-04-14
- */
 @Service
 @Primary
 public class StaffRewardServiceImpl extends ServiceImpl<StaffRewardMapper, StaffReward> implements IStaffRewardService {
-
     @Autowired
     private StaffRewardMapper staffRewardMapper;
-
     @Override
     public CommonVO saveStaffReward(StaffReward staffReward) {
         staffReward.setActionUserId(UserUtil.getUserId());

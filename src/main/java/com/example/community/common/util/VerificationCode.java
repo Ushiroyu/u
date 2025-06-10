@@ -1,5 +1,4 @@
 package com.example.community.common.util;
-
 import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServletResponse;
 import java.awt.*;
@@ -7,13 +6,7 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.util.Random;
-
-/**
- * Author : zhangxiaojian
- * Date : 2021/3/11
- */
 public class VerificationCode {
-
     private int width = 100;// 生成验证码图片的宽度
     private int height = 30;// 生成验证码图片的高度
     private String[] fontNames = { "宋体", "楷体", "隶书", "微软雅黑" };
@@ -21,45 +14,21 @@ public class VerificationCode {
     private Random random = new Random();
     private String codes = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
     private String text;// 记录随机字符串
-
-    /**
-     * 获取一个随意颜色
-     *
-     * @return
-     */
     private Color randomColor() {
         int red = random.nextInt(150);
         int green = random.nextInt(150);
         int blue = random.nextInt(150);
         return new Color(red, green, blue);
     }
-
-    /**
-     * 获取一个随机字体
-     *
-     * @return
-     */
     private Font randomFont() {
         String name = fontNames[random.nextInt(fontNames.length)];
         int style = random.nextInt(4);
         int size = random.nextInt(5) + 24;
         return new Font(name, style, size);
     }
-
-    /**
-     * 获取一个随机字符
-     *
-     * @return
-     */
     private char randomChar() {
         return codes.charAt(random.nextInt(codes.length()));
     }
-
-    /**
-     * 创建一个空白的BufferedImage对象
-     *
-     * @return
-     */
     private BufferedImage createImage() {
         BufferedImage image = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
         Graphics2D g2 = (Graphics2D) image.getGraphics();
@@ -67,7 +36,6 @@ public class VerificationCode {
         g2.fillRect(0, 0, width, height);
         return image;
     }
-
     public BufferedImage getImage() {
         BufferedImage image = createImage();
         Graphics2D g2 = (Graphics2D) image.getGraphics();
@@ -84,12 +52,6 @@ public class VerificationCode {
         drawLine(image);
         return image;
     }
-
-    /**
-     * 绘制干扰线
-     *
-     * @param image
-     */
     private void drawLine(BufferedImage image) {
         Graphics2D g2 = (Graphics2D) image.getGraphics();
         int num = 5;
@@ -103,19 +65,12 @@ public class VerificationCode {
             g2.drawLine(x1, y1, x2, y2);
         }
     }
-
     public String getText() {
         return text;
     }
-
     public static void output(BufferedImage image, OutputStream out) throws IOException {
         ImageIO.write(image, "JPEG", out);
     }
-    
     public static void checkCode(String code, String verify_code) {
-//        if (code == null || verify_code == null || "".equals(code) || !verify_code.toLowerCase().equals(code.toLowerCase())) {
-//            //验证码不正确
-//            throw new AuthenticationServiceException("验证码不正确");
-//        }
     }
 }

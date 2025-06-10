@@ -1,5 +1,4 @@
 package com.example.community.common.security;
-
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.example.community.common.util.VerificationCode;
 import com.example.community.entity.User;
@@ -11,17 +10,11 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.session.SessionRegistry;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
-
-/**
- * Author : zhangxiaojian
- * Date : 2021/3/12
- */
 public class LoginFilter extends UsernamePasswordAuthenticationFilter {
     @Autowired
     SessionRegistry sessionRegistry;
@@ -46,8 +39,6 @@ public class LoginFilter extends UsernamePasswordAuthenticationFilter {
             String password = loginData.get(getPasswordParameter()).toString();
             Boolean rememberMe = Boolean.valueOf(loginData.get("rememberMe").toString());
             request.setAttribute("rememberMe",rememberMe);
-            
-            
             if (username == null) {
                 username = "";
             }
@@ -55,10 +46,8 @@ public class LoginFilter extends UsernamePasswordAuthenticationFilter {
                 password = "";
             }
             username = username.trim();
-            
             UsernamePasswordAuthenticationToken authRequest = new UsernamePasswordAuthenticationToken(
                     username, password);
-            
             setDetails(request, authRequest);
             User principal = new User();
             principal.setUsername(username);
@@ -69,5 +58,4 @@ public class LoginFilter extends UsernamePasswordAuthenticationFilter {
             return super.attemptAuthentication(request, response);
         }
     }
-
 }

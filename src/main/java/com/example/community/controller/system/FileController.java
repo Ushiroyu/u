@@ -1,5 +1,4 @@
 package com.example.community.controller.system;
-
 import com.example.community.common.properties.FileProperties;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -8,26 +7,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
-
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
-
-/**
- * Author : zhangxiaojian
- * Date : 2021/4/19
- */
 @Controller
 @RequestMapping("file")
 public class FileController {
-
     @Autowired
     private FileProperties fileProperties;
-    
     @ResponseBody
     @RequestMapping(value = "image",produces = MediaType.IMAGE_JPEG_VALUE)
     public byte[] getImage(@RequestParam String filePath) throws IOException {
-        
         FileInputStream is = null;
         byte[] bytes;
         try {
@@ -46,4 +36,3 @@ public class FileController {
         return null;
     }
 }
-

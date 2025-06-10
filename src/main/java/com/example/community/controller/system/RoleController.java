@@ -1,32 +1,18 @@
 package com.example.community.controller.system;
-
-
 import com.example.community.common.vo.CommonVO;
 import com.example.community.entity.Role;
 import com.example.community.service.IRoleMenuService;
 import com.example.community.service.IRoleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
-
-/**
- * <p>
- *  前端控制器
- * </p>
- *
- * @author zhangxiaojian
- * @since 2021-03-11
- */
 @RestController
 @RequestMapping("system/role")
 public class RoleController {
-    
     @Autowired
     private IRoleService roleService;
     @Autowired
     private IRoleMenuService roleMenuService;
-
     @PostMapping
     public CommonVO saveRole(@RequestBody Role role){
         role.setName("ROLE_"+role.getName());
@@ -52,10 +38,8 @@ public class RoleController {
         List<Role> list = roleService.list();
         return new CommonVO(true,list);
     }
-    
     @PutMapping("roleMenu")
     public CommonVO updateRoleMenu(@RequestParam(value="roleId")Integer roleId,@RequestParam(value="menuIds") List<Integer> menuIds){
-        
         return roleMenuService.updateRoleMenu(roleId,menuIds);
     }
 }

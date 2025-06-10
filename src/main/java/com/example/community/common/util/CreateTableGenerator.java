@@ -1,9 +1,7 @@
 package com.example.community.common.util;
-
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
-
 import java.io.File;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
@@ -13,15 +11,10 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Enumeration;
 import java.util.List;
-
 public class CreateTableGenerator {
-
     public static void main(String[] args) {
-        // 指定包名，扫描该包下的类
         String packageName = "com.example.community.entity";
-        // 指定生成的表名前缀
         String tablePrefix = "";
-
         List<Class<?>> classes = getClasses(packageName);
         for (Class<?> clazz : classes) {
             if (clazz.isAnnotationPresent(TableName.class)) {
@@ -29,7 +22,6 @@ public class CreateTableGenerator {
                 String tableName = tablePrefix + tableNameAnnotation.value();
                 StringBuilder sb = new StringBuilder("CREATE TABLE ");
                 sb.append(tableName).append(" (");
-
                 boolean hasPrimaryKey = false;
                 Field[] fields = clazz.getDeclaredFields();
                 for (Field field : fields) {
@@ -50,23 +42,14 @@ public class CreateTableGenerator {
                         sb.append("COMMENT '").append(tableFieldAnnotation.value()).append("', ");
                     }
                 }
-
                 if (!hasPrimaryKey) {
-                    // 如果没有主键，则自动创建一个id作为主键
                     sb.append("id INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY COMMENT '自增主键', ");
                 }
-
                 sb.delete(sb.length() - 2, sb.length() - 1).append(")");
                 System.out.println(sb.append(";"));
             }
         }
     }
-
-    /**
-     * 获取指定包名下的所有类
-     * @param packageName 包名
-     * @return 类列表
-     */
     private static List<Class<?>> getClasses(String packageName) {
         List<Class<?>> classes = new ArrayList<>();
         try {
@@ -93,12 +76,6 @@ public class CreateTableGenerator {
         }
         return classes;
     }
-
-    /**
-     * 获取字段类型对应的MySQL数据类型
-     * @param field 字段类型
-     * @return MySQL数据类型
-     */
     private static String getColumnType(Field field) {
         Class<?> fieldType = field.getType();
         if (String.class.equals(fieldType)) {
@@ -121,18 +98,11 @@ public class CreateTableGenerator {
             throw new RuntimeException("Unsupported field type: " + fieldType.getSimpleName());
         }
     }
-
-    /**
-     * 生成建表语句
-     */
     private static String generateCreateTableSql(Class<?> clazz) {
         StringBuilder sb = new StringBuilder();
-        //获取表名
         TableName tableAnnotation = clazz.getAnnotation(TableName.class);
         String tableName = tableAnnotation.value();
         sb.append("CREATE TABLE IF NOT EXISTS ").append(tableName).append(" (\n");
-
-        //获取主键字段
         List<Field> idFields = new ArrayList<>();
         for (Field field : clazz.getDeclaredFields()) {
             if (field.isAnnotationPresent(TableId.class)) {
@@ -142,13 +112,10 @@ public class CreateTableGenerator {
         if (idFields.isEmpty()) {
             throw new RuntimeException("No @TableId annotation found on class " + clazz.getSimpleName());
         }
-        //只处理第一个主键字段
         Field idField = idFields.get(0);
         String idColumnName = idField.getName();
         String idColumnType = getColumnType(idField);
         sb.append("\t").append(idColumnName).append(" ").append(idColumnType).append(" NOT NULL AUTO_INCREMENT,\n");
-
-        //获取其他字段
         for (Field field : clazz.getDeclaredFields()) {
             if (Modifier.isStatic(field.getModifiers())) {
                 continue; //忽略静态字段

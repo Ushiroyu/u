@@ -1,5 +1,4 @@
 package com.example.community.service.impl;
-
 import com.example.community.common.util.DateUtil;
 import com.example.community.common.vo.CommonVO;
 import com.example.community.mapper.GoodsMapper;
@@ -7,24 +6,15 @@ import com.example.community.service.IDataAnalysisService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
-
 import java.text.SimpleDateFormat;
 import java.util.*;
-
-/**
- * Author : zhangxiaojian
- * Date : 2021/4/26
- */
 @Service
 @Primary
 public class DataAnalysisServiceImpl implements IDataAnalysisService {
-    
     @Autowired
     private GoodsMapper goodsMapper;
-    
     @Override
     public CommonVO getStoreDayAnalysis(String storeId) {
-
         String date = DateUtil.format(new Date(), "yyyy-MM-dd");
         List<Map<String,Object>> data = goodsMapper.getStoreDayData(storeId,date);
         List<Object> goodsNames  = new ArrayList<>();
@@ -41,7 +31,6 @@ public class DataAnalysisServiceImpl implements IDataAnalysisService {
         result.put("goodsMoneys",goodsMoneys);
         return new CommonVO(true,result);
     }
-
     @Override
     public CommonVO getStoreMonthAnalysis(String storeId) {
         Calendar c = Calendar.getInstance();
@@ -49,7 +38,6 @@ public class DataAnalysisServiceImpl implements IDataAnalysisService {
         c.add(Calendar.MONTH, -1);
         Date m = c.getTime();
         String date = new SimpleDateFormat("yyyy-MM-dd").format(m);
-        
         List<Map<String,Object>> data = goodsMapper.getStoreMonthAnalysis(storeId,date);
         List<Object> goodsNames  = new ArrayList<>();
         List<Object> goodsSales  = new ArrayList<>();

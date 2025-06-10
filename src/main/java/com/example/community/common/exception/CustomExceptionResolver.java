@@ -1,21 +1,14 @@
 package com.example.community.common.exception;
-
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerExceptionResolver;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.json.MappingJackson2JsonView;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.HashMap;
 import java.util.Map;
-
-/**
- * Author : zhangxiaojian
- * Date : 2021/3/11
- */
 @Component
 @Slf4j
 public class CustomExceptionResolver implements HandlerExceptionResolver {
