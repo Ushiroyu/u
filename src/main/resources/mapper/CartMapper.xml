@@ -1,15 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.xj.groupbuy.mapper.CartMapper">
-
-
-    <resultMap id="CartMap" type="com.xj.groupbuy.entity.Cart">
+<mapper namespace="com.example.community.mapper.CartMapper">
+    <resultMap id="CartMap" type="com.example.community.entity.Cart">
         <id column="id" property="id"/>
         <result column="user_id" property="userId"/>
         <result column="total_price" property="totalPrice"/>
         <result column="goods_num" property="goodsNum"/>
     </resultMap>
-    <resultMap id="CartItemMap" type="com.xj.groupbuy.entity.CartItem">
+    <resultMap id="CartItemMap" type="com.example.community.entity.CartItem">
         <id column="id" property="id"/>
         <result column="cart_id" property="cartId"/>
         <result column="goods_id" property="goodsId"/>
@@ -18,9 +16,8 @@
         <result column="spec_key" property="specKey"/>
         <result column="spec_key_name" property="specKeyName"/>
     </resultMap>
-
-    <resultMap id="CartWithItems" type="com.xj.groupbuy.entity.Cart" extends="CartMap">
-        <collection property="cartItems" column="id" ofType="com.xj.groupbuy.entity.CartItem" select="selectCartItems">
+    <resultMap id="CartWithItems" type="com.example.community.entity.Cart" extends="CartMap">
+        <collection property="cartItems" column="id" ofType="com.example.community.entity.CartItem" select="selectCartItems">
             <id column="id" property="id"/>
             <result column="cart_id" property="cartId"/>
             <result column="goods_id" property="goodsId"/>
@@ -30,7 +27,6 @@
             <result column="spec_key_name" property="specKeyName"/>
         </collection>
     </resultMap>
-
     <select id="selectCartWithItems" resultMap="CartWithItems">
         select
             c.id,
@@ -40,7 +36,6 @@
         from `cart` c
         where c.user_id = #{userId}
     </select>
-    
     <select id="selectCartItems" resultMap="CartItemMap">
         select
             ci.id,
@@ -53,7 +48,6 @@
         from `cart_item` ci
         where ci.cart_id = #{id}
     </select>
-    
     <select id="selectStoreCount" resultType="integer">
         select 
                count(g.goods_store_id) 

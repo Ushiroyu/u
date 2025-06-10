@@ -1,0 +1,16 @@
+package com.example.community.service;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.example.community.common.vo.CommonVO;
+import com.example.community.entity.User;
+import com.baomidou.mybatisplus.extension.service.IService;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.web.multipart.MultipartFile;
+import java.util.List;
+import java.util.Map;
+public interface IUserService extends IService<User>, UserDetailsService {
+    int updatePassword(String userId,String newPassword);
+    int checkUser(String username);
+    IPage<User> userRoleTable(String userId, String name, Integer pageNo, Integer pageSize);
+    CommonVO getUserAndRoleById(String userId);
+    IPage<?> getUsersByRole(String userRole, Integer pageNo, Integer pageSize);
+}
